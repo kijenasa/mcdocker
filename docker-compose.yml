@@ -17,7 +17,6 @@ services:
       ENFORCE_WHITELIST: "TRUE"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
-      WORLD: /worlds/world
     restart: unless-stopped
   minecraft-creative:
     container_name: minecraft-creative
@@ -34,5 +33,4 @@ services:
       ENFORCE_WHITELIST: "TRUE"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
-      WORLD: /worlds/world
     restart: unless-stopped
