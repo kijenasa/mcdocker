@@ -1,6 +1,14 @@
 version: '3.3'
 
 services:
+  proxy:
+    image: itzg/mc-proxy
+    environment:
+      TYPE: VELOCITY
+    ports:
+      - "${PROXY_PORT}:25577"
+    volumes:
+      - "${PROXY_DIR}:/server"
 
   minecraft-survival:
     container_name: minecraft-survival
@@ -13,11 +21,14 @@ services:
       EULA: "TRUE"
       TYPE: "${SERVER_TYPE}"
       OPS: ${OP_NAME}
+      ONLINE_MODE: "FALSE"
       ENABLE_WHITELIST: "TRUE"
       ENFORCE_WHITELIST: "TRUE"
+      WHITELIST: "kijenasa"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
     restart: unless-stopped
+
   minecraft-creative:
     container_name: minecraft-creative
     image: itzg/minecraft-server
@@ -29,8 +40,10 @@ services:
       EULA: "TRUE"
       TYPE: "${SERVER_TYPE}"
       OPS: ${OP_NAME}
+      ONLINE_MODE: "FALSE"
       ENABLE_WHITELIST: "TRUE"
       ENFORCE_WHITELIST: "TRUE"
+      WHITELIST: "${WHITELIST}"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
     restart: unless-stopped
