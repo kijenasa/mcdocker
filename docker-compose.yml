@@ -20,7 +20,7 @@ services:
       WORLD: /worlds/world
     restart: unless-stopped
   minecraft-creative:
-    container_name: minecraft-survival
+    container_name: minecraft-creative
     image: itzg/minecraft-server
     volumes:
       - ${CREATIVE_DIR}:/data
