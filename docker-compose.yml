@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+
+  minecraft-survival:
+    container_name: minecraft-survival
+    image: itzg/minecraft-server
+    volumes:
+      - ${SURVIVAL_DIR}:/data
+    ports:
+      - ${SURVIVAL_PORT}:25565
+    environment:
+      EULA: "TRUE"
+      TYPE: "${SERVER_TYPE}"
+      OPS: ${OP_NAME}
+      ENABLE_WHITELIST: "TRUE"
+      ENFORCE_WHITELIST: "TRUE"
+      VERSION: "${SERVER_VERSION}"
+      DEBUG: "TRUE"
+      WORLD: /worlds/world
+    restart: unless-stopped
+  minecraft-creative:
+    container_name: minecraft-survival
+    image: itzg/minecraft-server
+    volumes:
+      - ${CREATIVE_DIR}:/data
+    ports:
+      - ${CREATIVE_PORT}:25565
+    environment:
+      EULA: "TRUE"
+      TYPE: "${SERVER_TYPE}"
+      OPS: ${OP_NAME}
+      ENABLE_WHITELIST: "TRUE"
+      ENFORCE_WHITELIST: "TRUE"
+      VERSION: "${SERVER_VERSION}"
+      DEBUG: "TRUE"
+      WORLD: /worlds/world
+    restart: unless-stopped
