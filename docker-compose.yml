@@ -30,7 +30,7 @@ services:
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
     labels:
-      mc-router.host: "survival.localhost"
+      mc-router.host: "survival.${SERVER_IP}"
       mc-router.default: true
     restart: unless-stopped
 
@@ -52,5 +52,5 @@ services:
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
     labels:
-      mc-router.host: "creative.localhost"
+      mc-router.host: "creative.${SERVER_IP}"
     restart: unless-stopped
