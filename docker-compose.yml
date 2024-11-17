@@ -1,15 +1,17 @@
 version: '3.3'
 
 services:
-  proxy:
-    image: itzg/mc-proxy
-    environment:
-      TYPE: VELOCITY
+  router:
+    image: itzg/mc-router:latest
+    command: "-debug -in-docker"
+    depends_on:
+      - minecraft-survival
+      - minecraft-creative
     ports:
-      - "${SERVER_PORT}:25577"
+      - "${SERVER_PORT}:25565"
     volumes:
-      - "${PROXY_DIR}:/server"
-
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+# MINECRAFT SERVERS:
   minecraft-survival:
     container_name: minecraft-survival
     image: itzg/minecraft-server
@@ -21,12 +23,15 @@ services:
       EULA: "TRUE"
       TYPE: "${SERVER_TYPE}"
       OPS: ${OP_NAME}
-      ONLINE_MODE: "FALSE"
+      MOTD: "Survival"
       ENABLE_WHITELIST: "TRUE"
       ENFORCE_WHITELIST: "TRUE"
-      WHITELIST: "kijenasa"
+      WHITELIST: "${OP_NAME}"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
+    labels:
+      mc-router.host: "survival.localhost"
+      mc-router.default: true
     restart: unless-stopped
 
   minecraft-creative:
@@ -40,10 +45,12 @@ services:
       EULA: "TRUE"
       TYPE: "${SERVER_TYPE}"
       OPS: ${OP_NAME}
-      ONLINE_MODE: "FALSE"
+      MOTD: "Creative"
       ENABLE_WHITELIST: "TRUE"
       ENFORCE_WHITELIST: "TRUE"
-      WHITELIST: "${WHITELIST}"
+      WHITELIST: "${OP_NAME}"
       VERSION: "${SERVER_VERSION}"
       DEBUG: "TRUE"
+    labels:
+      mc-router.host: "creative.localhost"
     restart: unless-stopped
