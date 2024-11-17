@@ -6,7 +6,7 @@ services:
     environment:
       TYPE: VELOCITY
     ports:
-      - "${PROXY_PORT}:25577"
+      - "${SERVER_PORT}:25577"
     volumes:
       - "${PROXY_DIR}:/server"
 
