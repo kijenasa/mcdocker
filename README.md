@@ -15,3 +15,16 @@ When its done, ^C to close the server.
 Add mods and worlds to the Survival and Creative folders.
 
 Your done! :)
+
+# Connecting
+Suvival server:
+
+```
+survival.localhost
+```
+
+Creative server:
+
+```
+creative.localhost
+```
